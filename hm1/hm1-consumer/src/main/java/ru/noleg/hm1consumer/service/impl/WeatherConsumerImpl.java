@@ -1,9 +1,11 @@
-package ru.noleg.hm1consumer.service;
+package ru.noleg.hm1consumer.service.impl;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Component;
+import ru.noleg.hm1consumer.service.WeatherAggregator;
+import ru.noleg.hm1consumer.service.WeatherConsumer;
 import ru.noleg.kerneldata.model.WeatherData;
 
 @Component

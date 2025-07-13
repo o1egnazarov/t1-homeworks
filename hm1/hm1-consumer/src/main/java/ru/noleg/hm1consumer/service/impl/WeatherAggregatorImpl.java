@@ -1,7 +1,8 @@
-package ru.noleg.hm1consumer.service;
+package ru.noleg.hm1consumer.service.impl;
 
 import com.google.common.collect.EvictingQueue;
 import org.springframework.stereotype.Service;
+import ru.noleg.hm1consumer.service.WeatherAggregator;
 import ru.noleg.kerneldata.model.WeatherCondition;
 import ru.noleg.kerneldata.model.WeatherData;
 

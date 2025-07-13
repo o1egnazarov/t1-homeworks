@@ -1,9 +1,11 @@
-package ru.noleg.hm1consumer.service;
+package ru.noleg.hm1consumer.service.impl;
 
 import org.springframework.stereotype.Service;
 import ru.noleg.hm1consumer.dto.ColdestDayInfo;
 import ru.noleg.hm1consumer.dto.HottestDayInfo;
 import ru.noleg.hm1consumer.dto.WeatherAnalytics;
+import ru.noleg.hm1consumer.service.WeatherAggregator;
+import ru.noleg.hm1consumer.service.WeatherAnalyticsService;
 import ru.noleg.kerneldata.model.WeatherData;
 
 import java.time.LocalDate;

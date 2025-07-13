@@ -9,7 +9,7 @@
 ## Запуск приложения
 1. Клонируйте репозиторий:
    ```bash
-   git clone <repository-url>
+   git clone https://github.com/o1egnazarov/t1-homeworks.git
    cd t1-homework/hm1
    ```
 

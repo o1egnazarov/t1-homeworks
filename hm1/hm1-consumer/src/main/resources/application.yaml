@@ -1,0 +1,30 @@
+server:
+  port: 8081
+
+spring:
+  application:
+    name: hm1-consumer
+
+  kafka:
+    bootstrap-servers: localhost:9092
+    consumer:
+      group-id: weather-consumer-group
+      auto-offset-reset: earliest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      properties:
+        spring.json.trusted.packages: "ru.noleg.kerneldata.model"
+    listener:
+      ack-mode: RECORD
+
+kafka:
+  topic:
+    name: weather-data-topic
+
+logging:
+  level:
+    root: INFO
+  file:
+    name: hm1/logs/consumer.log
+  pattern:
+    file: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"

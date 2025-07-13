@@ -1,0 +1,26 @@
+server:
+    port: 8082
+
+spring:
+  application:
+    name: hm1-producer
+
+  kafka:
+    bootstrap-servers: localhost:9092
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+      acks: all
+      retries: 5
+
+kafka:
+  topic:
+    name: weather-data-topic
+
+logging:
+  level:
+    root: INFO
+  file:
+    name: hm1/logs/producer.log
+  pattern:
+    file: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"

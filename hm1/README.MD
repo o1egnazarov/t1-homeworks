@@ -18,7 +18,7 @@
    docker-compose up -d
    ```
    Это запустит:
-   - Apache Kafka
+   - Apache Kafka (в количестве трёх брокеров)
    - Zookeeper
 
 

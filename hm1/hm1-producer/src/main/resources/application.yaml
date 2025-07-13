@@ -6,7 +6,7 @@ spring:
     name: hm1-producer
 
   kafka:
-    bootstrap-servers: localhost:9092
+    bootstrap-servers: localhost:9091,localhost:9092,localhost:9093
     producer:
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
       value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
@@ -14,8 +14,11 @@ spring:
       retries: 5
 
 kafka:
-  topic:
+  weather-topic:
     name: weather-data-topic
+    num-partitions: 3
+    num-replicas: 3
+
 
 logging:
   level:

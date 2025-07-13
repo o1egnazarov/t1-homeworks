@@ -6,7 +6,7 @@ spring:
     name: hm1-consumer
 
   kafka:
-    bootstrap-servers: localhost:9092
+    bootstrap-servers: localhost:9091,localhost:9092,localhost:9093
     consumer:
       group-id: weather-consumer-group
       auto-offset-reset: earliest
@@ -18,7 +18,7 @@ spring:
       ack-mode: RECORD
 
 kafka:
-  topic:
+  weather-topic:
     name: weather-data-topic
 
 logging:

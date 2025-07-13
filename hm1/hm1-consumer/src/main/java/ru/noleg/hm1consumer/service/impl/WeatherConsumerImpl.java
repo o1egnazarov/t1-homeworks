@@ -20,7 +20,7 @@ public class WeatherConsumerImpl implements WeatherConsumer {
     }
 
     @Override
-    @KafkaListener(topics = "${kafka.topic.name}")
+    @KafkaListener(topics = "${kafka.weather-topic.name}")
     public void listen(WeatherData weatherData) {
         logger.info("Received weather data: {}", weatherData);
         weatherAggregator.aggregate(weatherData);

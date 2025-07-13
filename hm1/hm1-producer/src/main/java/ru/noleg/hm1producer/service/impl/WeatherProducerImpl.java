@@ -13,7 +13,7 @@ public class WeatherProducerImpl implements WeatherProducer {
 
     private static final Logger logger = LoggerFactory.getLogger(WeatherProducerImpl.class);
 
-    @Value("${kafka.topic.name}")
+    @Value("${kafka.weather-topic.name}")
     private String topic;
     private final KafkaTemplate<String, WeatherData> kafkaTemplate;
 

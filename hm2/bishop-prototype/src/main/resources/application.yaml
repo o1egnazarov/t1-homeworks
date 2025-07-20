@@ -1,0 +1,4 @@
+synthetic:
+  human:
+    audit-mode: CONSOLE
+    queue-capacity: 100

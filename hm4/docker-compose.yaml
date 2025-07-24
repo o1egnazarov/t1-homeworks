@@ -1,0 +1,21 @@
+services:
+  db:
+    container_name: authorisation_database_postgres
+    image: postgres:16
+    restart: always
+    environment:
+      POSTGRES_DB: auth_db
+      POSTGRES_USER: noleg
+      POSTGRES_PASSWORD: root
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: [ "CMD-SHELL", "psql -U noleg -d auth_db -c 'SELECT 1'" ]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:

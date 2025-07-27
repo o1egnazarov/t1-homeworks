@@ -7,12 +7,10 @@ import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
-import ru.noleg.authorisationservice.service.user.UserDetailsImpl;
 
 import javax.crypto.SecretKey;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.UUID;
 import java.util.function.Function;
 
 @Component
@@ -20,26 +18,32 @@ public class JwtTokenProvider implements TokenProvider {
 
     @Value("${token.signing.key}")
     private String jwtSigningKey;
-    @Value("${token.expiration}")
-    private long jwtExpirationInMs;
+
+    @Value("${token.refresh.expiration}")
+    private long jwtRefreshExpirationInMs;
+
+    @Value("${token.access.expiration}")
+    private long jwtAccessExpirationInMs;
+
 
     @Override
-    public String generateToken(UserDetails userDetails) {
-        Map<String, Object> claims = new HashMap<>();
-        if (userDetails instanceof UserDetailsImpl customUserDetails) {
-            claims.put("username", customUserDetails.getUsername());
-            claims.put("email", customUserDetails.getEmail());
-            claims.put("roles", customUserDetails.getAuthorities());
-        }
-        return this.buildToken(claims, userDetails);
-    }
-
-    private String buildToken(Map<String, Object> claims, UserDetails userDetails) {
+    public String generateAccessToken(UserDetails userDetails) {
         return Jwts.builder()
-                .claims(claims)
+                .claim("jti", UUID.randomUUID().toString())
                 .subject(userDetails.getUsername())
                 .issuedAt(new Date(System.currentTimeMillis()))
-                .expiration(new Date(System.currentTimeMillis() + this.jwtExpirationInMs))
+                .expiration(new Date(System.currentTimeMillis() + this.jwtAccessExpirationInMs))
+                .signWith(getSigningKey())
+                .compact();
+    }
+
+    @Override
+    public String generateRefreshToken(UserDetails userDetails, String jti) {
+        return Jwts.builder()
+                .subject(userDetails.getUsername())
+                .issuedAt(new Date(System.currentTimeMillis()))
+                .expiration(new Date(System.currentTimeMillis() + jwtRefreshExpirationInMs))
+                .claim("jti", jti)
                 .signWith(getSigningKey())
                 .compact();
     }
@@ -52,6 +56,11 @@ public class JwtTokenProvider implements TokenProvider {
 
     private boolean isTokenExpired(String token) {
         return extractExpiration(token).before(new Date());
+    }
+
+    @Override
+    public String extractJti(String token) {
+        return extractAllClaims(token).get("jti", String.class);
     }
 
     @Override
